@@ -1,0 +1,132 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Model.EF.Product>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container">
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+
+            <!-- Navbar brand -->
+            <span class="navbar-brand">Danh mục</span>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index","Home")">
+                            All
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    @foreach (var item in ViewBag.Category)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index","Home",new { category = item.ID})">
+                                <span class="sr-only">(current)</span>@item.Name
+                            </a>
+                        </li>
+                    }
+
+
+                </ul>
+                <!-- Links -->
+
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                {
+                    <div class="md-form my-0">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control mr-sm-2", placeholder = "Tìm kiếm. . .", style = "margin: 10px" })
+                    </div>
+                }
+            </div>
+            <!-- Collapsible content -->
+
+        </nav>
+        <!--/.Navbar-->
+        <section class="text-center mb-4">
+
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+                <style>
+                    .card {
+                        width: 23.3%;
+                        margin: 6px;
+                        padding: 6px;
+                    }
+
+                        .card img {
+                            width: 100%;
+                        }
+                </style>
+                <!--Grid column-->
+                <div class="col-lg-12 col-md-12 mb-4 d-flex flex-wrap">
+
+                    @foreach (var item in ViewBag.Product)
+                    {
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <div class="view overlay">
+                                <img src="@item.Image" style="width: 250px;height: 300px" class="card-img-top"
+                                     alt="">
+                                <a href="@Url.Action("Detail","Product",new { id = item.ID})">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <!--Card image-->
+                            <!--Card content-->
+                            <div class="card-body text-center">
+                                <!--Category & Title-->
+                                <h5>
+                                    <strong>
+                                        <a href="@Url.Action("Detail","Product",new { id = item.ID})" class="dark-grey-text">
+                                            @item.Name
+                                            @*<span class="badge badge-pill danger-color">NEW</span>*@
+                                        </a>
+                                    </strong>
+                                </h5>
+
+                                <h4 class="font-weight-bold blue-text">
+                                    @{
+                                        string price = String.Format("{0:#,##0}", item.Price);
+                                    }
+                                    <strong>@price Đ</strong>
+                                </h4>
+                                <a href="@Url.Action("AddItem","Cart",new { productID = item.ID,quantity=1})" style="color:whitesmoke">
+                                    <button class="btn btn-primary btn-md my-0 p" type="submit">Thêm vào giỏ hàng<i class="fas fa-shopping-cart ml-1"></i></button>
+                                </a>
+                            </div>
+                            <!--Card content-->
+
+                        </div>
+                        <!--Card-->
+                    }
+                    <br />
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+            @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort }))
+        </section>
+    </div>
+</main>
+<!--Main layout-->

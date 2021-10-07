@@ -1,0 +1,176 @@
+﻿@model PagedList.IPagedList<Model.EF.User>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "ListManager";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout1.cshtml";
+}
+
+<!-- [ Main Content ] start -->
+<section class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ breadcrumb ] start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-12">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Quản lý tài khoản</h5>
+                                        </div>
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+                                            <li class="breadcrumb-item"><a href="@Url.Action("Index","User")">Tài khoản</a></li>
+                                            <li class="breadcrumb-item"><a href="#!">Danh sách tài khoản khách hàng</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- [ breadcrumb ] end -->
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <!-- [ Hover-table ] start -->
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <ul style="display: inline block; margin: 0; padding: 0; overflow: hidden;list-style-type: none ">
+                                            <li style="float:left">
+                                                <button class="btn btn-primary btn-lg" onclick="location.href='@Url.Action("SignUp", "User")'">Tạo tài khoản</button>
+                                            </li>
+                                            <li style="float:left">
+                                                @using (Html.BeginForm("ListManager", "User", FormMethod.Get))
+                                                {
+                                                    <div class="input-group mb-1" style="padding:2px 0px 0px 0px">
+
+                                                        <input type="text" class="form-control" value="@ViewBag.SearchString" placeholder="Tìm tên tài khoản,họ tên,..." name="searchString">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tài khoản</th>
+                                                        <th>Ngày tạo</th>
+                                                        <th>Họ tên</th>
+                                                        <th>Email</th>
+                                                        <th>Sdt</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Hành động</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr>
+                                                            <td style="display:none;" id="row_@item.ID">@item.ID</td>
+                                                            <td>@item.UserName</td>
+                                                            <td>@item.CreatedDate</td>
+                                                            <td>@item.Name</td>
+                                                            <td>@item.Email</td>
+                                                            <td>@item.Phone</td>
+                                                            <td>
+                                                                @if (item.Status == true)
+                                                                {
+                                                                    <small>Đang hoạt động</small>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <small>Chưa kích hoạt</small>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <a href="@Url.Action("Edit","User",new { @id=item.ID})">Sửa</a> |
+                                                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.ID }, new AjaxOptions
+                                                           {
+                                                               Confirm = ("Bạn có muốn xóa bản ghi này"),
+                                                               OnComplete = "$('#row_" + item.ID + "').remove()",
+                                                               HttpMethod = "Delete",
+                                                               OnSuccess = "window.location.reload()"
+                                                           })
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                                            of @Model.PageCount
+                                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ Hover-table ] end -->
+                        </div>
+                        <!-- [ Main Content ] end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- [ Main Content ] end -->
+<!-- Warning Section start -->
+<!-- Older IE warning message -->
+<!--[if lt IE 11]>
+    <div class="ie-warning">
+        <h1>Warning!!</h1>
+        <p>You are using an outdated version of Internet Explorer, please upgrade
+           <br/>to any of the following web browsers to access this website.
+        </p>
+        <div class="iew-container">
+            <ul class="iew-download">
+                <li>
+                    <a href="http://www.google.com/chrome/">
+                        <img src="../assets/images/browser/chrome.png" alt="Chrome">
+                        <div>Chrome</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.mozilla.org/en-US/firefox/new/">
+                        <img src="../assets/images/browser/firefox.png" alt="Firefox">
+                        <div>Firefox</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.opera.com">
+                        <img src="../assets/images/browser/opera.png" alt="Opera">
+                        <div>Opera</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.apple.com/safari/">
+                        <img src="../assets/images/browser/safari.png" alt="Safari">
+                        <div>Safari</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                        <img src="../assets/images/browser/ie.png" alt="">
+                        <div>IE (11 & above)</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <p>Sorry for the inconvenience!</p>
+    </div>
+<![endif]-->
+<!-- Warning Section Ends -->
+<!-- Required Js -->
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Areas/Admin/Asset/js/vendor-all.min.js"></script>
+<script src="~/Areas/Admin/Asset/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Areas/Admin/Asset/js/pcoded.min.js"></script>
+

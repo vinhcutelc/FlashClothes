@@ -1,0 +1,43 @@
+﻿@model List<FlashClothes.Models.CartItem>
+@{
+    Layout = "";
+}
+@{
+    var totalPrice = 0;
+    string totalPriceProduct = "";
+}
+@foreach (var item in Model)
+{
+    <ul class="list-group mb-3 z-depth-1">
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+                <h6 class="my-0">@item.Product.Name</h6>
+                <small class="text-muted">@item.Product.Code</small>
+                <hr />
+                <h7>Số lượng: @item.Quantity </h7>
+            </div>
+            @{
+                string price = string.Format("{0:#,##0}", item.Product.Price);
+            }
+            <span class="text-muted">@price Đ</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between bg-light">
+            <div class="text-success">
+                <h6 class="my-0">Mã giảm giá</h6>
+                <small>Áp dụng</small>
+            </div>
+            <span class="text-success"></span>
+        </li>
+        @{var allPrice = item.Quantity * Convert.ToInt32(item.Product.Price);
+            totalPrice += allPrice;
+            totalPriceProduct = string.Format("{0:#,##0}", totalPrice);
+            ViewBag.TotalPrice = totalPriceProduct;}
+    </ul>
+}
+<div class="list-group-item d-flex justify-content-between lh-condensed">
+    <span>Tổng tiền</span>
+    <strong>@ViewBag.TotalPrice Đ</strong>
+    @Html.TextBox("TotalPrice", totalPriceProduct, new { @class = "form-control", placeholder = "", type = "hidden", value = ViewBag.TotalPrice })
+</div>
+<br />
+

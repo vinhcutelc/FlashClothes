@@ -1,0 +1,93 @@
+﻿@model List<Model.EF.Order>
+@{
+    ViewBag.Title = "DetailOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Areas/Admin/Asset/js/vendor-all.min.js"></script>
+<script src="~/Areas/Admin/Asset/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Areas/Admin/Asset/js/pcoded.min.js"></script>
+<main class="mt-5 pt-4">
+    <div class="container">
+        <div class="row">
+            <!-- [ accordion-collapse ] start -->
+            @if (Model.Count > 0)
+            {
+                <div class="col-sm-12">
+                    <h5 class="mb-3">Đơn hàng của tôi</h5>
+                    <hr>
+                    <div class="accordion" id="accordionExample">
+                        @foreach (var item in Model)
+                        {
+                            <div class="card">
+                                <div class="card-header" id="heading" style="display: flex;flex-direction: row">
+                                    <h5 class="mb-0"><a aria-expanded="true" aria-controls="collapseOne">Ngày đặt: @item.CreatedDate</a></h5>
+                                    <h4 style="margin: 0px 0px 0px 550px;">Tổng giá: @TempData["TotalDetail"]</h4>
+                                </div>
+                                <div class=" card-body">
+                                    <div class="card">
+                                        @foreach (var product in ViewBag.Product)
+                                        {
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Mã đơn hàng</th>
+                                                            <th>Sản phẩm</th>
+                                                            <th>Trạng thái</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class='clickable-row' data-href='@Url.Action("DetailOrder","Order",new { @id=item.ID })'>
+                                                            <td id="row_@item.ID">@item.ID</td>
+                                                            <td>@product.Name</td>
+                                                            <td>
+                                                                @if (item.Status == 0)
+                                                                {
+                                                                    <a>Chưa xử lý</a>
+                                                                }
+                                                                else if (item.Status == 1)
+                                                                {
+                                                                    <a>Đang gửi hàng</a>
+                                                                }
+                                                                else if (item.Status == 2)
+                                                                {
+                                                                    <a>Đã nhận hàng</a>
+                                                                }
+                                                                else if (item.Status == 3)
+                                                                {
+                                                                    <a>Đã hủy</a>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @Ajax.ActionLink("Hủy đơn hàng", "RemoveByCustomer", new { @id = item.ID }, new AjaxOptions
+                                                           {
+                                                               Confirm = ("Xác nhận hủy đơn hàng?"),
+                                                               OnComplete = "$('#row_" + item.ID + "').remove()",
+                                                               HttpMethod = "RemoveByCustomer",
+                                                               OnSuccess = "window.location.reload()"
+                                                           })
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- [ accordion-collapse ] end -->
+            }
+            else
+            {
+                <div class="col-sm-12">
+                    <h5 class="mb-3">Đơn hàng trống.  <a href="@Url.Action("Index","Home")">Mua hàng ngay</a></h5>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+

@@ -1,0 +1,82 @@
+﻿@model Model.EF.Product
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .detail-submit{
+        display: flex;
+    }
+</style>
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    @using (Html.BeginForm("AddItem", "Carts", FormMethod.Get, new { IDProduct = Model.ID }))
+    {
+        <div class="container dark-grey-text mt-5">
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <img src="@Model.Image" class="img-fluid" alt="product" style="width:400px;height:400px">
+
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!--Content-->
+                    <div class="p-4">
+
+                        <div class="mb-3">
+                            <a href="">
+                                @foreach (var item in ViewBag.CategoryProduct)
+                                {
+                                    <span class="badge purple mr-1">@item.Name</span>
+                                }
+                            </a>
+                            <a href="">
+                                <span class="badge blue mr-1"></span>
+                            </a>
+                            <a href="">
+                                <span class="badge red mr-1"></span>
+                            </a>
+                        </div>
+
+                        <p class="lead">
+                            <span>@string.Format("{0:#,##0}", Model.Price) Đ</span>
+                        </p>
+
+                        <p class="lead font-weight-bold">@Model.Name</p>
+
+                        <p>
+                            @Model.Description
+                        </p>
+
+                        <!-- Default input -->
+                        @Html.HiddenFor(item => item.ID)
+                        @if (Model.Quantity > 0)
+                        {
+                            <div class="detail-submit">
+                                <input type="number" value="1" aria-label="Search" class="form-control" min="1" style="width: 100px" name="Quantity">
+                                <button class="btn btn-primary btn-md my-0 p" type="submit">
+                                    <i class="fas fa-shopping-cart ml-1"></i>
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <p>Sản phẩm đã hết hàng</p>
+                        }
+                    </div>
+                    <!--Content-->
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
+    }
+</main>
+<!--Main layout-->

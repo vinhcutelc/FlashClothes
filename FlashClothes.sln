@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashClothes", "FlashClothes\FlashClothes.csproj", "{6ECDC50A-E5D0-4164-8B4D-5CD0F5B33D38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{F7A84803-770B-4F02-B4F9-BE09BC51592D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ECDC50A-E5D0-4164-8B4D-5CD0F5B33D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ECDC50A-E5D0-4164-8B4D-5CD0F5B33D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ECDC50A-E5D0-4164-8B4D-5CD0F5B33D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ECDC50A-E5D0-4164-8B4D-5CD0F5B33D38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7A84803-770B-4F02-B4F9-BE09BC51592D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7A84803-770B-4F02-B4F9-BE09BC51592D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7A84803-770B-4F02-B4F9-BE09BC51592D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7A84803-770B-4F02-B4F9-BE09BC51592D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34073760-BC07-439A-99AC-7BF203821A83}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,153 @@
+﻿@model Model.EF.Product
+
+@{
+    ViewBag.Title = "NewProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout1.cshtml";
+}
+
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ breadcrumb ] start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-12">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Thêm mới sản phẩm</h5>
+                                        </div>
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+                                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Product")">Sản phẩm</a></li>
+                                            <li class="breadcrumb-item"><a href="#!">Tạo mới sản phẩm</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- [ breadcrumb ] end -->
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <!-- [ form-element ] start -->
+                            <div class="col-sm-12">
+                                <!-- Input group -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Thêm sản phẩm</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        @using (Html.BeginForm("NewProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="feather icon-box"></i></span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @placeholder = "Tên sản phẩm" })
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="feather icon-align-justify"></i></span>
+                                                </div>
+                                                @Html.DropDownListFor(model => model.CategoryID, null)
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="feather icon-align-justify"></i></span>
+                                                </div>
+                                                <input id="Image" title="Upload ảnh sản phẩm" type="file" name="file" />
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="feather icon-book"></i></span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @placeholder = "Thông tin sản phẩm" })
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="feather icon-paperclip"></i></span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.Price, new { @class = "form-control", @placeholder = "Giá" })
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="feather icon-cpu"></i></span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", @placeholder = "Mã sản phẩm" })
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i class="feather icon-cast"></i></span>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @placeholder = "Số lượng", @type = "number", @min = "1" })
+                                            </div>
+                                            <hr />
+                                            <button class="btn btn-primary" type="submit">Tạo mới</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ form-element ] end -->
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- [ Main Content ] end -->
+<!-- Warning Section start -->
+<!-- Older IE warning message -->
+<!--[if lt IE 11]>
+        <div class="ie-warning">
+            <h1>Warning!!</h1>
+            <p>You are using an outdated version of Internet Explorer, please upgrade
+               <br/>to any of the following web browsers to access this website.
+            </p>
+            <div class="iew-container">
+                <ul class="iew-download">
+                    <li>
+                        <a href="http://www.google.com/chrome/">
+                            <img src="../assets/images/browser/chrome.png" alt="Chrome">
+                            <div>Chrome</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/">
+                            <img src="../assets/images/browser/firefox.png" alt="Firefox">
+                            <div>Firefox</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.opera.com">
+                            <img src="../assets/images/browser/opera.png" alt="Opera">
+                            <div>Opera</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.apple.com/safari/">
+                            <img src="../assets/images/browser/safari.png" alt="Safari">
+                            <div>Safari</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                            <img src="../assets/images/browser/ie.png" alt="">
+                            <div>IE (11 & above)</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Sorry for the inconvenience!</p>
+        </div>
+    <![endif]-->
+<!-- Warning Section Ends -->
+<!-- Required Js -->
+<script src="~/Areas/Admin/Asset/js/vendor-all.min.js"></script>
+<script src="~/Areas/Admin/Asset/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Areas/Admin/Asset/js/pcoded.min.js"></script>
+

@@ -1,0 +1,9 @@
+﻿@model List<FlashClothes.Models.CartItem>
+
+<li class="nav-item">
+    <a class="nav-link waves-effect" href="@Url.Action("Index","Cart")">
+        <span class="badge red z-depth-1 mr-1">@Model.Count()</span>
+        <i class="fas fa-shopping-cart"></i>
+        <span class="clearfix d-none d-sm-inline-block"> Giỏ hàng </span>
+    </a>
+</li>

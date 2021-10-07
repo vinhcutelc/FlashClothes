@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Model.EF.DetailOrder>
+
+@{
+    ViewBag.Title = "DetailOrder";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout1.cshtml";
+}
+<!-- JQuery -->
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- Initializations -->
+<script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+</script>
+
+<section class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 style="font-size: 25px">Đơn hàng số: @TempData["IDDetailOrder"]</h5>
+                                    </div>
+                                    <div class="card-body table-border-style">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tên sản phẩm</th>
+                                                        <th>Số lượng</th>
+                                                        <th>Giá</th>
+                                                    </tr>
+                                                </thead>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@ViewBag.ProductName</td>
+                                                            <td>@item.Quantity</td>
+                                                            <td>@(String.Format("{0:#,##0}", item.Price)) đ</td>
+                                                        </tr>
+                                                    </tbody>
+                                                }
+                                            </table>
+                                            <strong style="font-size:25px">Tổng tiền: @(String.Format("{0:#,##0}", TempData["TotalDetail"])) đ</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ basic-table ] end -->
+
+                        </div>
+                        <!-- [ Main Content ] end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- [ Main Content ] end -->
